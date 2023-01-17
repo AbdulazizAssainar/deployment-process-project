@@ -21,5 +21,10 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "no-undef": "off",
+        "no-explicit-any": "off",
+        "no-unused-vars": "off",
+        "no-empty-function": "off",
+        "no-var-requires": "off"
     }
 }

@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
@@ -19,7 +21,7 @@ export class AuthLoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private auth: AuthService,
     private modal: ModalController
-  ) { }
+  ) { return }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

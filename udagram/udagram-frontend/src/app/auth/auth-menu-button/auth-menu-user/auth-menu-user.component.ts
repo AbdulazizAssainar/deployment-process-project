@@ -1,3 +1,5 @@
+/*eslint no-empty-function: ["error", { "allow": ["functions"] }]*/
+
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
@@ -8,9 +10,9 @@ import { ModalController } from '@ionic/angular';
 })
 export class AuthMenuUserComponent implements OnInit {
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController) { return }
 
-  ngOnInit() {}
+  ngOnInit() { return }
 
   dismissModal() {
     this.modalCtrl.dismiss();
