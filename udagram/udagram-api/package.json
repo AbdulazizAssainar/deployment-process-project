@@ -10,8 +10,8 @@
     "dev": "npx ts-node-dev --respawn ./src/server.ts",
     "prod": "npx tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
-    "deploy": "npm run build && eb list && eb use udagram-api-env && eb deploy",
-    "build": "npm run clean && tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json ",
+    "deploy": "eb list && eb use udagram-api-env && eb deploy",
+    "build": "tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json www/package.json && echo \"Project building finished successfully\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
