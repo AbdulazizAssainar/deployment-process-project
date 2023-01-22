@@ -19,7 +19,7 @@ import { config } from "./config/config";
   console.log("Database Connected");
 
   const app = express();
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 8080;
 
   app.use(bodyParser.json());
 
@@ -49,7 +49,7 @@ import { config } from "./config/config";
   // Start the Server
   app.listen(port, () => {
     console.log(`Backend server is listening on port ${port}....`);
-    console.log(`Frontent server running ${config.url}:${port}/`);
+    console.log(`Frontent server running ${process.env.URL}`);
     console.log(`press CTRL+C to stop server`);
   });
 })();
