@@ -3,7 +3,7 @@
         "api:install": "cd udagram-api && npm install",
         "frontend:install": "cd udagram-frontend && npm install",
         "api:build": "cd udagram-api && npm run build",
-        "frontend:lint": "cd udagram-frontend && dir",
+        "frontend:lint": "cd udagram-frontend && npm run lint",
         "frontend:build": "cd udagram-frontend && npm run build",
         "api:deploy": "cd udagram-api && npm run deploy",
         "frontend:deploy": "cd udagram-frontend && npm run deploy"
