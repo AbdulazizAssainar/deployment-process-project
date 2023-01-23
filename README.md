@@ -40,9 +40,9 @@ http://udagramapi.s3-website.us-east-2.amazonaws.com/
 
 ![CircleCI Environment Variables](./screenshots/circleci/env.png)
 
-### Architecture 
+### Diagram 
 
-![Architecture](./docs/pics/architecture.png)
+![Diagram](./docs/pics/architecture.png)
 
 ### Pipeline 
 
