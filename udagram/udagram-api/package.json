@@ -13,7 +13,7 @@
     "prod": "npx tsc && node ./www/server.js",
     "clean": "rm -rf www/ || true",
     "deploy": "eb list && eb use udagram-api-env && eb deploy",
-    "build": "tsc && cp -rf src/config www/config && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp .npmrc www/.npmrc && cp package.json www/package.json && echo \"Project building finished successfully\"",
+    "build": "tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && echo \"Project building finished successfully\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
