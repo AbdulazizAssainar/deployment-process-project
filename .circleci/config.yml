@@ -1,82 +1,84 @@
+# Use the latest 2.1 version of CircleCI pipeline process engine.
+# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
+
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
-  node: circleci/node@5.0.0
-  aws-cli: circleci/aws-cli@2.0.6
+  node: circleci/node@5.1.0
   eb: circleci/aws-elastic-beanstalk@2.0.1
-  # different jobs are calles later in the workflows sections
+  aws-cli: circleci/aws-cli@3.1.1
+
+# Define a job to be invoked later in a workflow.
+# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  # API Build and Deploy
-  api-build-deploy:
+  build:
     docker:
-      # the base image can run most needed actions with orbs
-      - image: "cimg/base:stable"
-    steps:
+      - image: cimg/node:19.4.0
+    steps:    
       - checkout
-      - node/install:
-          node-version: '14.15.1'
-      - aws-cli/install
-      - eb/setup
-      # install dependencies
+      # Use root level package.json to install dependencies in the frontend app
+      - run:
+          name: Install Front-End Dependencies
+          command: |
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            cd udagram-frontend && npm run frontend:install
+      # TODO: Install dependencies in the the backend API          
       - run:
           name: Install API Dependencies
           command: |
-            cd udagram && npm run api:install
-      # Build
+            cd udagram-api && npm run api:install
+      # TODO: Lint the frontend
+      - run:
+          name: Front-End Lint
+          command: |
+            cd udagram-frontend && npm run frontend:lint
+      # TODO: Build the frontend app
+      - run:
+          name: Front-End Build
+          command: |
+            cd udagram-frontend && npm run frontend:build
+      # TODO: Build the backend API      
       - run:
           name: API Build
           command: |
-            cd udagram && npm run api:build
-      # Deploy
-      - run:
-          name: Deploy API
-          command: |
-            cd udagram && npm run api:deploy
-  # Frontend Build and Deploy
-  frontend-build-deploy:
+            cd udagram-api && npm run api:build
+  # deploy step will run only after manual approval
+  deploy:
     docker:
-      # the base image can run most needed actions with orbs
       - image: "cimg/base:stable"
+      # more setup needed for aws, node, elastic beanstalk
     steps:
-      - checkout
       - node/install:
-          node-version: '14.15.1'
-      - aws-cli/install
-      # install dependencies
+          node-version: '4.7' 
+      - eb/setup
+      - aws-cli/setup
+      - checkout
       - run:
-          name: Angular CLI Dependencies
+          name: Deploy App
+          # TODO: Install, build, deploy in both apps
           command: |
-            npm i -g @angular/cli      
-      - run:
-          name: Install Frontend Dependencies
-          command: |
-            cd udagram && npm run frontend:install
-      # Lint
-      - run:
-          name: Frontend Lint
-          command: |
-            cd udagram && npm run frontend:lint
-      # Build
-      - run:
-          name: Frontend Build
-          command: |
-            cd udagram && npm run frontend:build
-      # Deploy
-      - run:
-          name: Deploy Frontend
-          command: |
-            cd udagram && npm run frontend:deploy
-# Workflow only runs matster branch. API must complete before Frontend
+            npm run deploy
+            echo "# TODO: Install, build, deploy in both apps"
+
+# Invoke jobs via workflows
+# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  udagram:
+  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - api-build-deploy:
-          filters: # Only master branch
+      - build
+      - hold:
+          filters:
             branches:
-              only: /^master/
-      - frontend-build-deploy:
+              only:
+                - master
+          type: approval
           requires:
-            - api-build-deploy
-          filters: # Only master branch
-            branches:
-              only: /^master/
+            - build
+      - deploy:
+          requires:
+            - hold
