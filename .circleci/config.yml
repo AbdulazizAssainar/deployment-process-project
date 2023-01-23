@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Front-End Lint
           command: |
-            yarn frontend:lint
+            npm run frontend:lint
       # TODO: Build the frontend app
       - run:
           name: Front-End Build
