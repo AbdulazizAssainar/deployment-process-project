@@ -30,6 +30,11 @@ jobs:
       - run:
           name: Front-End Lint
           command: |
+            cd udagram/udagram-frontend
+      # TODO: Lint the frontend
+      - run:
+          name: Front-End Lint
+          command: |
             cd udagram/udagram-frontend && npm run lint
       # TODO: Install dependencies in the the backend API          
       - run:
