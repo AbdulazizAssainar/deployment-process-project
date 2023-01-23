@@ -61,7 +61,6 @@ jobs:
           name: Deploy App
           # TODO: Install, build, deploy in both apps
           command: |
-            npm run deploy
             echo "# TODO: Install, build, deploy in both apps"
 
 # Invoke jobs via workflows
