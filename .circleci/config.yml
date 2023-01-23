@@ -14,7 +14,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: cimg/node:19.4.0
+      - image: cimg/node:14.15
     steps:    
       - checkout
       # Use root level package.json to install dependencies in the frontend app
@@ -26,11 +26,6 @@ jobs:
             echo "NPM --version" 
             echo $(npm --version)
             npm run frontend:install
-      # TODO: Lint the frontend
-      - run:
-          name: Front-End Lint
-          command: |
-            cd udagram/udagram-frontend
       # TODO: Lint the frontend
       - run:
           name: Front-End Lint
