@@ -35,7 +35,7 @@ jobs:
       - run:
           name: Front-End Lint
           command: |
-            cd udagram/udagram-frontend && npm run frontend:lint
+            cd udagram && npm run frontend:lint
       # TODO: Build the frontend app
       - run:
           name: Front-End Build
